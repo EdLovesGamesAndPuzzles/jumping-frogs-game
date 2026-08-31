@@ -15,7 +15,7 @@ async def main():
 
     clock = pg.time.Clock()
 
-    lilypad_num = 6
+    lilypad_num = 5
     position = 2
     radius = 10
     lijst = []
