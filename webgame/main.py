@@ -2,11 +2,25 @@ import os
 import asyncio
 import pygame as pg
 import sys
+import copy
+import math
 #from pygame.local import  *
 
 
 async def main():
+
+
     size = width, height = (1200,600)
+    background_color = pg.Color("lightblue")# potential contenders are turqouise2, skyblue lightblue etc
+    lilypad_num = 5
+    position = 2
+    radius = 10
+    lijst = [1]*lilypad_num
+    Rect = pg.Rect(0, 0, 100, 100)
+    selected = False
+    all_states = []
+    all_states.append(lijst.copy())
+    print(all_states)
 
     pg.init()
     screen = pg.display.set_mode(size)
@@ -15,15 +29,7 @@ async def main():
 
     clock = pg.time.Clock()
 
-    lilypad_num = 5
-    position = 2
-    radius = 10
-    lijst = []
-    for i in range(0,lilypad_num):
-        lijst.append(1)
-    Rect = pg.Rect(0, 0, 100, 100)
-
-    selected = False
+    
 
 
     #apply changes
@@ -69,6 +75,8 @@ async def main():
                                 lijst[position] = 0
                                 position = landing
                                 selected = False
+                                all_states.append(lijst.copy())
+                                print(all_states)
 
                     if event.key in [pg.K_d, pg.K_RIGHT] and selected == True:
                         if position + (lijst[position]*2 -1)< lilypad_num:
@@ -78,11 +86,21 @@ async def main():
                                 lijst[position] = 0
                                 position = landing
                                 selected = False
+                                all_states.append(lijst.copy())
+                                print(all_states)
 
                     if event.key in [pg.K_r]:
                         lijst = []
                         for i in range(0,lilypad_num):
                             lijst.append(1)
+                        all_states = [lijst.copy()]
+
+                    if event.key in [pg.K_z] and len(all_states) >1:
+                        all_states.pop()
+                        lijst = all_states[-1].copy()
+                        #all_states = copy.deepcopy(all_states)
+                        position = math.ceil(lilypad_num/2) -1
+                        print(all_states)
 
                         
                             
@@ -90,7 +108,7 @@ async def main():
                         
 
 
-        screen.fill((0,0, 200))
+        screen.fill(background_color)
 
         #Draw lilypads
         
@@ -116,6 +134,8 @@ async def main():
             lijst = []
             for i in range(0,lilypad_num):
                 lijst.append(1)
+            all_states = [lijst.copy()]
+            print(all_states)
     
 
         await asyncio.sleep(0)
