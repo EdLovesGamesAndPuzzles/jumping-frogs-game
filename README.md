@@ -15,7 +15,7 @@ This is still an early prototype, so the visuals and interface are deliberately 
 
 You will see a row of frogs standing on lily pads, represented by green platforms.
 
-The goal is to move **all frogs onto a single lily pad**.
+Your goal is to move all frogs onto a single lily pad.
 
 To move frogs:
 
